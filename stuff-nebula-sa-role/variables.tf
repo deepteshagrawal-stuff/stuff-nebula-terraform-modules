@@ -12,3 +12,8 @@ variable "namespace" {
   description = "Namespace of the service account"
   type        = string
 }
+
+variable "caller_identity" {
+  description = "Caller identity that is creating the role"
+  type        = string
+}
