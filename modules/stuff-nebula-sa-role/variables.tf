@@ -1,5 +1,5 @@
 variable "name" {
-  descirption = "Name of the application the SSM service account is going to be used for"
+  description = "Name of the application the SSM service account is going to be used for"
   type        = string
 }
 
