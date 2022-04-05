@@ -1,5 +1,5 @@
 resource "aws_iam_role" "app_service_account" {
-  name = "EKS-ServiceAccount-Role-${var.application_name}"
+  name = "EKS-ServiceAccount-Role-${var.name}"
 
   assume_role_policy = jsonencode(
     {
@@ -14,7 +14,7 @@ resource "aws_iam_role" "app_service_account" {
           "Condition" : {
             "StringEquals" : {
               "${var.oidc_issuer_url}:aud" : "sts.amazonaws.com",
-              "${var.oidc_issuer_url}:sub" : "system:serviceaccount:${var.namespace}:${var.service_account_name}"
+              "${var.oidc_issuer_url}:sub" : "system:serviceaccount:${var.namespace}:${var.name}"
             }
           }
         }
@@ -22,6 +22,6 @@ resource "aws_iam_role" "app_service_account" {
   })
 
   tags = {
-    Name = "EKS-ServiceAccount-Role-${var.application_name}"
+    Name = "EKS-ServiceAccount-Role-${var.name}"
   }
 }
