@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 resource "aws_iam_role" "app_service_account" {
   name = "EKS-ServiceAccount-Role-${var.name}"
 
@@ -10,7 +8,7 @@ resource "aws_iam_role" "app_service_account" {
         {
           "Effect" : "Allow",
           "Principal" : {
-            "Federated" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${var.oidc_issuer_url}"
+            "Federated" : "arn:aws:iam::${var.cluster_account_id}:oidc-provider/${var.oidc_issuer_url}"
           },
           "Action" : "sts:AssumeRoleWithWebIdentity",
           "Condition" : {

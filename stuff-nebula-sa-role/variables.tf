@@ -12,3 +12,8 @@ variable "namespace" {
   description = "Namespace of the service account"
   type        = string
 }
+
+variable "cluster_account_id" {
+  descirption = "AWS account ID that holds the cluster that the service account is being deployed to"
+  type        = string
+}
