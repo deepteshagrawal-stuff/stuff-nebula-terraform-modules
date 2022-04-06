@@ -3,12 +3,12 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "node_sg_id" {
+variable "sg_node_id" {
   description = "ID of the node security group"
   type        = string
 }
 
-variable "identifier" {
-  descirption = "Identifier for the database that will also help with naming of the security groups"
+variable "service_name" {
+  descirption = "Name of the service to be attached to the pod security group name"
   type        = string
 }

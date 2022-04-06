@@ -5,9 +5,9 @@ variable "subnet_ids" {
 }
 
 /* Must exist in the same VPC as the Subnet list provided above */
-variable "rds_sg_id" {
+variable "inbound_sg_ids" {
   description = "ID of the node security group"
-  type        = string
+  type        = list(string)
 }
 
 variable "rds_object" {

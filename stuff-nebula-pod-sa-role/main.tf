@@ -1,4 +1,4 @@
-resource "aws_iam_role" "app_service_account" {
+resource "aws_iam_role" "app" {
   name = "EKS-ServiceAccount-Role-${var.name}"
 
   assume_role_policy = jsonencode(
