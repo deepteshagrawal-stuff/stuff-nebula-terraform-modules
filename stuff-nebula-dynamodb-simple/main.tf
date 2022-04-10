@@ -1,20 +1,3 @@
-provider "aws" {
-  access_key                  = "mock_access_key"
-  region                      = "ap-southeast-2"
-  s3_use_path_style           = true
-  secret_key                  = "mock_secret_key"
-  skip_credentials_validation = true
-  skip_metadata_api_check     = true
-  skip_requesting_account_id  = true
-
-  endpoints {
-    s3       = "http://localhost:4566"
-    sqs      = "http://localhost:4566"
-    dynamodb = "http://localhost:4566"
-  }
-
-}
-
 resource "aws_dynamodb_table" "dynamodb_pro" {
   count          = var.provisioned ? 1 : 0
   name           = var.table_name
