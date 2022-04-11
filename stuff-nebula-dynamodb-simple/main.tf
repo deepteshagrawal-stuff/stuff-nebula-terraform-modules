@@ -1,3 +1,12 @@
+locals {
+  ttl = (var.ttl_enabled == true ? [
+    {
+      ttl_enabled = var.ttl_enabled
+      ttl_name = var.ttl_name
+    }
+  ] : [])
+}
+
 resource "aws_dynamodb_table" "dynamodb_pro" {
   count          = var.provisioned ? 1 : 0
   name           = var.table_name
@@ -11,9 +20,12 @@ resource "aws_dynamodb_table" "dynamodb_pro" {
     type = "S"
   }
 
-  ttl {
-    attribute_name = var.ttl_name
-    enabled        = var.ttl_enabled
+  dynamic "ttl" {
+    for_each = local.ttl
+    content {
+      attribute_name = local.ttl[0].ttl_name
+      enabled        = local.ttl[0].ttl_enabled
+    }
   }
 
   point_in_time_recovery {
@@ -33,9 +45,12 @@ resource "aws_dynamodb_table" "dynamodb_ppr" {
     type = "S"
   }
 
-  ttl {
-    attribute_name = var.ttl_name
-    enabled        = var.ttl_enabled
+  dynamic "ttl" {
+    for_each = local.ttl
+    content {
+      attribute_name = local.ttl[0].ttl_name
+      enabled        = local.ttl[0].ttl_enabled
+    }
   }
 
   point_in_time_recovery {
