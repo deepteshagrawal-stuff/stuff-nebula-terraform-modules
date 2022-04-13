@@ -23,3 +23,9 @@ variable "rds_object" {
     skip_final_snapshot = bool
   })
 }
+
+/* VPC id to deploy the RDS into */
+variable "vpc_id" {
+  description = "ID of the node security group"
+  type        = string
+}
