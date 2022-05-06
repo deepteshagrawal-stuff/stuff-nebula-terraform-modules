@@ -9,6 +9,6 @@ variable "sg_node_id" {
 }
 
 variable "service_name" {
-  descirption = "Name of the service to be attached to the pod security group name"
+  description = "Name of the service to be attached to the pod security group name"
   type        = string
 }
