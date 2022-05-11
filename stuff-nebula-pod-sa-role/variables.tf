@@ -3,6 +3,11 @@ variable "name" {
   type        = string
 }
 
+variable "environment" {
+  description = "Environment the service account is being used for"
+  type        = string
+}
+
 variable "oidc_issuer_url" {
   description = "URL of the OIDC issuer bound to the cluster"
   type        = string
