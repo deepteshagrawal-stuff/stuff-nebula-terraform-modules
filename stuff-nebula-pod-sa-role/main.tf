@@ -1,5 +1,5 @@
 resource "aws_iam_role" "app" {
-  name = "EKS-ServiceAccount-Role-${var.name}"
+  name = "EKS-ServiceAccount-Role-${var.name}-${var.environment}"
 
   assume_role_policy = jsonencode(
     {
@@ -22,6 +22,6 @@ resource "aws_iam_role" "app" {
   })
 
   tags = {
-    Name = "EKS-ServiceAccount-Role-${var.name}"
+    Name = "EKS-ServiceAccount-Role-${var.name}-${var.environment}"
   }
 }
