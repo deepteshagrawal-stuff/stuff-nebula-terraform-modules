@@ -50,7 +50,7 @@ File/Folder | Description | Other notes
 Modules in Terraform follow the same format as the terraform code that you are declaring inside of your own terraform code. The a comprised of the same main.tf, variables.tf, output.tf etc. When you are calling a module you must provide all of the variables it declares inside of the variables.tf that do not have a default value or else just as in our code the module will fail as a value has a null value. When the module is then executed it instaties the infrastucture that is declared then outputs the values delcared in the output.tf back to your main.tf file where you called the module for that output configuration to be used.
 
 ### Calling the modules declared in this github repository:
-***When calling the modules declared in this repository you must be using a github service connection that has access to read from these repositorys!*** <br />
+***When calling the modules declared in this repository you must be using a github service connection that has access to read from these repositories!*** <br />
 Here is an example of calling on of the modules declared inside of this repository. Please note the `//` inside of the module URL after the repository name is declared and before the folder containing the module is declared. <br />
 ```hcl
 module "pod_service_account_role" {
@@ -63,6 +63,18 @@ module "pod_service_account_role" {
 }
 ```
 More reading: https://www.terraform.io/language/modules/sources
+
+## **Reference Implementation Repositories**
+
+The following repositories have implemented terraform code using these repository as a reference point and using the terraform modules provided inside of this repository.
+
+https://github.com/StuffNZ/stuff-experience-nebula-frontend/tree/main/terraform
+
+https://github.com/StuffNZ/stuff-eventing-service
+
+https://github.com/StuffNZ/stuff-provisioning-service
+
+https://github.com/StuffNZ/stuff-content-service-nebula
 
 ## Other notes:
 
