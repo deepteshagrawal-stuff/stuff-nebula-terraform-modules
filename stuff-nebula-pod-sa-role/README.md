@@ -5,5 +5,6 @@ Module to create a role that can be a attached to a service account with given n
 To retrieve the OIDC issuer execute the following lines: <br/>
 *`aws eks describe-cluster --name $CLUSTER_NAME --query "cluster.identity.oidc.issuer" --output text`*
 
+**Policy files** | dwaodwopk | doawkdpwa
 
 How do we annotate the deployment yaml to provide pod identity?
