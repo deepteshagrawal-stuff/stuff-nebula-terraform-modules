@@ -24,7 +24,7 @@ terraform
 ├── providers.tf
 └── variables.tf
 ```
-This can be generated using the following commands:
+This can be generated using the following commands (also contained in the shell script ./terraform.sh):
 ```
 mkdir terraform
 mkdir terraform/policies

@@ -2,7 +2,8 @@ mkdir terraform
 mkdir terraform/policies
 mkdir terraform/configuration
 touch terraform/configuration/dev.tfvars
-touch terraform/configuration/test.tfvars
+touch terraform/configuration/qa.tfvars
+touch terraform/configuration/uat.tfvars
 touch terraform/configuration/prod.tfvars
 touch terraform/main.tf
 touch terraform/variables.tf
