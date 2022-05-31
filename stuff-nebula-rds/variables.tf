@@ -6,11 +6,12 @@ variable "subnet_ids" {
 
 /* Must exist in the same VPC as the Subnet list provided above */
 variable "inbound_sg_ids" {
-  description = "ID of the node security group"
+  description = "ID of the security group you want to be able to reach the RDS"
   type        = list(string)
 }
 
 variable "rds_object" {
+  description = "Contains all of the values required to generate a RDS instance"
   type = object({
     db_name             = string
     identifier          = string
@@ -26,6 +27,6 @@ variable "rds_object" {
 
 /* VPC id to deploy the RDS into */
 variable "vpc_id" {
-  description = "ID of the node security group"
+  description = "VPC_ID of the VPC the RDS instance is being deployed onto"
   type        = string
 }

@@ -8,6 +8,8 @@ https://www.terraform.io/intro
 
 https://learn.hashicorp.com/collections/terraform/aws-get-started
 
+*If the modules do not provide sufficent implementation options but are a good outline you can always use the module source code directly inside of you're terraform implementation and expand from there. Or refer the required change to infrastucture team. Ideally along with a pull request with you're required change!* 
+
 ## **Implementation**
 Once you have a basic understanding of terraform you can begin generating your application infrastucture. To begin you want to run the following folder stucture:
 ```
