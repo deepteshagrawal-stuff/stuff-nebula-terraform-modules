@@ -58,7 +58,7 @@ jobs:
 
     - task: S3Upload@1
       inputs:
-        awsCredentials: 'Nebula-Shared-Services-Account'
+        awsCredentials: 'nebula-base-terraform-modules-sa'
         regionName: 'ap-southeast-2'
         bucketName: '$(BUCKET_NAME)'
         sourceFolder: './zips/'
