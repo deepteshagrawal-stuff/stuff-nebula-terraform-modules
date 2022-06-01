@@ -4,14 +4,14 @@ trigger:
   batch: true
   branches:
     include:
-    - '*'
-    - "main"
+    - 'feature/s3-migration'
+    # - "main"
   paths:
     exclude:
     - 'README.md'
 
-variables:
-- template: ./ci-config.yaml
+# variables:
+# - template: ./ci-config.yaml
 
 pool:
   vmImage: ubuntu-latest
