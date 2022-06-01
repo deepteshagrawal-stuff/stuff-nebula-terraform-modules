@@ -23,3 +23,31 @@ jobs:
     - checkout: self
     # persistCredentials: true
       displayName: 'Checkout'
+
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
+
+    - task: TerraformTaskV3@3
+      inputs:
+        provider: 'aws'
+        command: 'init'
+        backendServiceAWS: 'SHARED-SERVICES-nebula-base-NebulaServiceAccount'
+        backendAWSBucketName: 'stuff-terraform-nebula'
+        backendAWSKey: 'shared/stuff-nebula-terraform-modules-state.tfstate'
+
+    - task: TerraformTaskV3@3
+      inputs:
+        provider: 'aws'
+        command: 'plan'
+        commandOptions: '-out=plan'
+        environmentServiceNameAWS: 'SHARED-SERVICES-nebula-base-NebulaServiceAccount'
+    
+    - task: TerraformTaskV3@3
+      inputs:
+        provider: 'aws'
+        command: 'apply'
+        commandOptions: '-input=false plan'
+        environmentServiceNameAWS: 'SHARED-SERVICES-nebula-base-NebulaServiceAccount'
+      
+    
