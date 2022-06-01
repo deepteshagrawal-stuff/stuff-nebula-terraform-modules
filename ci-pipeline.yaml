@@ -4,14 +4,14 @@ trigger:
   batch: true
   branches:
     include:
-    - '*'
-    - "main"
+    - 'feature/s3-migration'
+    # - "main"
   paths:
     exclude:
     - 'README.md'
 
-variables:
-- template: ./ci-config.yaml
+# variables:
+# - template: ./ci-config.yaml
 
 pool:
   vmImage: ubuntu-latest
@@ -23,3 +23,44 @@ jobs:
     - checkout: self
     # persistCredentials: true
       displayName: 'Checkout'
+
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
+
+    - task: TerraformTaskV3@3
+      inputs:
+        provider: 'aws'
+        command: 'init'
+        backendServiceAWS: 'SHARED-SERVICES-nebula-base-NebulaServiceAccount'
+        backendAWSBucketName: 'stuff-terraform-nebula'
+        backendAWSKey: 'shared/stuff-nebula-terraform-modules-state.tfstate'
+
+    - task: TerraformTaskV3@3
+      inputs:
+        provider: 'aws'
+        command: 'plan'
+        commandOptions: '-out=plan'
+        environmentServiceNameAWS: 'SHARED-SERVICES-nebula-base-NebulaServiceAccount'
+    
+    - task: TerraformTaskV3@3
+      inputs:
+        provider: 'aws'
+        command: 'apply'
+        commandOptions: '-input=false plan'
+        environmentServiceNameAWS: 'SHARED-SERVICES-nebula-base-NebulaServiceAccount'
+    
+    - bash: |
+        $(terraform output -raw bucket_id)
+        echo "##vso[task.setvariable variable=BUCKET_NAME]$bucket_id"
+      workingDirectory: $(Build.SourcesDirectory)
+      displayName: Retrieve Bucket Name
+
+    - task: S3Upload@1
+      inputs:
+        awsCredentials: 'Nebula-Shared-Services-Account'
+        regionName: 'ap-southeast-2'
+        bucketName: '$(BUCKET_NAME)'
+        sourceFolder: './zips/'
+        globExpressions: '**'
+
