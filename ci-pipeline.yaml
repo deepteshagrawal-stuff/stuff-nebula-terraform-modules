@@ -49,5 +49,18 @@ jobs:
         command: 'apply'
         commandOptions: '-input=false plan'
         environmentServiceNameAWS: 'SHARED-SERVICES-nebula-base-NebulaServiceAccount'
-      
     
+    - bash: |
+        $(terraform output -raw bucket_id)
+        echo "##vso[task.setvariable variable=BUCKET_NAME]$bucket_id"
+      workingDirectory: $(Build.SourcesDirectory)
+      displayName: Retrieve Bucket Name
+
+    - task: S3Upload@1
+      inputs:
+        awsCredentials: 'Nebula-Shared-Services-Account'
+        regionName: 'ap-southeast-2'
+        bucketName: '$(BUCKET_NAME)'
+        sourceFolder: './zips/'
+        globExpressions: '**'
+
