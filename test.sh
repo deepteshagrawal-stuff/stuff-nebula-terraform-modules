@@ -1,3 +1,3 @@
 aws s3 ls
 
-echo $(BUCKET_NAME)
+echo $BUCKET_NAME
