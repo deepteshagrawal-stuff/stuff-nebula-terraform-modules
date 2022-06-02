@@ -51,7 +51,7 @@ jobs:
         environmentServiceNameAWS: 'SHARED-SERVICES-nebula-base-TerraformServiceAccount'
     
     - bash: |
-        $(terraform output -raw bucket_id)
+        terraform output -raw bucket_id
         echo "##vso[task.setvariable variable=BUCKET_NAME]$bucket_id"
       workingDirectory: $(Build.SourcesDirectory)
       displayName: Retrieve Bucket Name
