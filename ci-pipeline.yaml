@@ -31,8 +31,8 @@ jobs:
 
     - bash: |
         for module in ./modules/*; do
-            terraform -chdir=modules/module init -backend=false
-            terraform -chdir=modules/module validate
+            terraform -chdir=$modules/$module init -backend=false
+            terraform -chdir=$modules/$module validate
         done
       displayName: Validate all Terraform modules
 
@@ -45,7 +45,7 @@ jobs:
         backendAWSBucketName: 'stuff-terraform-nebula'
         backendAWSKey: 'shared/stuff-nebula-terraform-modules-state.tfstate'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-      
+
     - task: TerraformTaskV3@3
       displayName: Plan Terraform
       inputs:
