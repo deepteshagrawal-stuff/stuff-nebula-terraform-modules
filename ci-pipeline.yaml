@@ -85,7 +85,7 @@ jobs:
         echo ${BRANCH_NAME}
         git config --global user.name "stuff-nebula-terraform-modules-service-ci-pipeline"
         git checkout ${BRANCH_NAME}
-        git add ./modules/*
+        git add ./modules/*/version-history.json
         git commit -m "$(Build.SourceVersion) Updating Version Files [skip ci]"
         git push origin ${BRANCH_NAME}
       displayName: 'Push Updated Version Files'
