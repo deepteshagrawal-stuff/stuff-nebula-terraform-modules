@@ -31,8 +31,8 @@ jobs:
 
     - bash: |
         for module in ./modules/*; do
-            terraform -chdir=./modules/$module init -backend=false
-            terraform -chdir=./modules/$module validate
+            terraform -chdir=$module init -backend=false
+            terraform -chdir=$module validate
         done
       displayName: Validate all Terraform modules
 
