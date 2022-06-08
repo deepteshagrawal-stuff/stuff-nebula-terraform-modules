@@ -21,13 +21,20 @@ jobs:
     displayName: Build
     steps:
     - checkout: self
-    # persistCredentials: true
+      persistCredentials: true
       displayName: 'Checkout'
 
     - task: TerraformInstaller@0
       displayName: Install Terraform
       inputs:
         terraformVersion: 'latest'
+
+    - bash: |
+        for module in ./modules/*; do
+            terraform -chdir=modules/module init -backend=false
+            terraform -chdir=modules/module validate
+        done
+      displayName: Validate all Terraform modules
 
     - task: TerraformTaskV3@3
       displayName: Init Terraform
@@ -37,7 +44,8 @@ jobs:
         backendServiceAWS: 'SHARED-SERVICES-nebula-base-TerraformServiceAccount'
         backendAWSBucketName: 'stuff-terraform-nebula'
         backendAWSKey: 'shared/stuff-nebula-terraform-modules-state.tfstate'
-
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+      
     - task: TerraformTaskV3@3
       displayName: Plan Terraform
       inputs:
@@ -45,7 +53,8 @@ jobs:
         command: 'plan'
         commandOptions: '-out=plan'
         environmentServiceNameAWS: 'SHARED-SERVICES-nebula-base-TerraformServiceAccount'
-    
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+
     - task: TerraformTaskV3@3
       displayName: Apply Terraform
       inputs:
@@ -53,12 +62,15 @@ jobs:
         command: 'apply'
         commandOptions: '-input=false plan'
         environmentServiceNameAWS: 'SHARED-SERVICES-nebula-base-TerraformServiceAccount'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+
     - task: PythonScript@0
       displayName: Check Version Status and Prepare Modules - Python Script
       inputs:
         scriptSource: 'filePath'
         scriptPath: './prepare_modules.py'
         failOnStderr: true
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     
     - task: AWSShellScript@1
       displayName: Upload New Modules
@@ -67,15 +79,15 @@ jobs:
         regionName: 'ap-southeast-2'
         scriptType: 'filePath'
         filePath: './upload_to_s3.sh'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
 
-
-    # # - task: S3Upload@1
-    # #   inputs:
-    # #     awsCredentials: 'nebula-base-terraform-modules-sa'
-    # #     regionName: 'ap-southeast-2'
-    # #     bucketName: '$(BUCKET_NAME)'
-    # #     sourceFolder: './zips/'
-    # #     globExpressions: '**'
-
-    
-
+    - bash: |
+        BRANCH_NAME=$(echo "$(Build.SourceBranch)" | sed 's/refs\/heads\///g')
+        echo ${BRANCH_NAME}
+        git config --global user.name "stuff-nebula-terraform-modules-service-ci-pipeline"
+        git checkout ${BRANCH_NAME}
+        git add .
+        git commit -m "$(Build.SourceVersion) Updating Version Files [skip ci]"
+        git push origin ${BRANCH_NAME}
+      displayName: 'Push Updated Version Files'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
