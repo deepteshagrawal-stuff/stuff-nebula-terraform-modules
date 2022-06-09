@@ -26,7 +26,7 @@ terraform
 ├── providers.tf
 └── variables.tf
 ```
-This can be generated using the following commands (also contained in the shell script ./terraform.sh):
+This can be generated using the following commands (Linux):
 ```
 mkdir terraform
 mkdir terraform/policies
@@ -52,11 +52,11 @@ File/Folder | Description | Other notes
 Modules in Terraform follow the same format as the terraform code that you are declaring inside of your own terraform code. The a comprised of the same main.tf, variables.tf, output.tf etc. When you are calling a module you must provide all of the variables it declares inside of the variables.tf that do not have a default value or else just as in our code the module will fail as a value has a null value. When the module is then executed it instaties the infrastucture that is declared then outputs the values delcared in the output.tf back to your main.tf file where you called the module for that output configuration to be used.
 
 ### Calling the modules declared in this github repository:
-***When calling the modules declared in this repository you must be using a github service connection that has access to read from these repositories!*** <br />
+***When calling the modules declared in this repository; a AWS profile with access to the S3 bucket (Shared services account) must be the default AWS profile or be exported using Environment variables!*** <br />
 Here is an example of calling on of the modules declared inside of this repository. Please note the `//` inside of the module URL after the repository name is declared and before the folder containing the module is declared. <br />
 ```hcl
 module "pod_service_account_role" {
-  source             = "github.com/StuffNZ/stuff-nebula-terraform-modules//stuff-nebula-pod-sa-role"
+  source             = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-nebula-pod-sa-role/1.0.0.zip"
   name               = var.name
   environment        = var.environment
   oidc_issuer_url    = var.oidc_issuer_url
@@ -64,15 +64,15 @@ module "pod_service_account_role" {
   cluster_account_id = data.aws_caller_identity.current.account_id
 }
 ```
-More reading: https://www.terraform.io/language/modules/sources
+Using the S3 module source implementation. More reading: https://www.terraform.io/language/modules/sources
 
 ## **Reference Implementation Repositories**
 
 The following repositories have implemented terraform code using these repository as a reference point and using the terraform modules provided inside of this repository.
 
-https://github.com/StuffNZ/stuff-experience-nebula-frontend/tree/main/terraform
+`Using the new S3 implementation:` https://github.com/StuffNZ/stuff-eventing-service
 
-https://github.com/StuffNZ/stuff-eventing-service
+https://github.com/StuffNZ/stuff-experience-nebula-frontend/tree/main/terraform
 
 https://github.com/StuffNZ/stuff-provisioning-service
 
