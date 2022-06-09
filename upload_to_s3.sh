@@ -5,4 +5,6 @@ if [ -d ./zips/* ]; then
             aws s3 cp ./zips/$(basename $module)/* s3://$BUCKET_NAME/$(basename $module)/$(basename $version)
         done
     done
+else 
+    echo "No modules to upload!"
 fi
