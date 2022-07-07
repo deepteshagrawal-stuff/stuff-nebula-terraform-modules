@@ -8,7 +8,7 @@ https://www.terraform.io/intro
 
 https://learn.hashicorp.com/collections/terraform/aws-get-started
 
-*If the modules do not provide sufficent implementation options but are a good outline you can always use the module source code directly inside of you're terraform implementation and expand from there. Or refer the required change to infrastucture team. Ideally along with a pull request with you're required change!* 
+*If the modules do not provide sufficent implementation options refer the required change to infrastucture team. Ideally along with a pull request with you're required change!* 
 
 ## **Implementation**
 Once you have a basic understanding of terraform you can begin generating your application infrastucture. To begin you want to run the following folder stucture:
@@ -66,6 +66,13 @@ module "pod_service_account_role" {
 ```
 Using the S3 module source implementation. More reading: https://www.terraform.io/language/modules/sources
 
+**All module sources:** <br />
+dynamodb-simple: `"s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-nebula-dynamodb-simple/1.0.0.zip"` <br />
+pod-sa-role: `"s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-nebula-pod-sa-role/1.0.0.zip"` <br />
+pog-sg: `"s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-nebula-pod-sg/1.0.0.zip"` <br />
+rds: `"s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-nebula-rds/1.0.0.zip"` <br />
+sqs: `"s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-nebula-sqs/1.0.0.zip"` <br />
+
 ## **Reference Implementation Repositories**
 
 The following repositories have implemented terraform code using these repository as a reference point and using the terraform modules provided inside of this repository.
@@ -77,6 +84,23 @@ https://github.com/StuffNZ/stuff-experience-nebula-frontend/tree/main/terraform
 https://github.com/StuffNZ/stuff-provisioning-service
 
 https://github.com/StuffNZ/stuff-content-service-nebula
+
+## **Updating the modules:**
+Updating the Terraform modules following the steps declared below will use the pipeline attached to this repository to generate a new terraform module. Allowing for the exsisting version of the module to still be used by other teams.
+
+We are using semantic versioning on the Terraform modules: https://semver.org/
+
+### Steps:
+- Branch out to a feature branch: feature/module-update
+- Make the desired changes to the module.
+- Update the modules `version-history.json - current version` to the desired version you would like to release. Following the semantic versioning schema declared above.
+- Pull request the module back to main.
+- Seek approval from another infrastucture admin.
+- Merge back to main - the pipeline will then trigger picking up the current version and generating a module inside of the AWS S3 repository with that current version. The current version will then be added to the version history.
+- Errors may occur if two teams modify the same module at the same time. So ensure if this occurs that all versions are accounted for inside of the version history. Take care.
+
+**AWS S3 repository** - Nebula Shared Services: https://s3.console.aws.amazon.com/s3/buckets/stuff-terraform-nebula-modules?region=ap-southeast-2&tab=objects <br />
+**ADO pipeline** - stuff-nebula-terraform-modules: https://dev.azure.com/stuffnzdigital/stuffnz-platform-and-infrastructure/_build
 
 ## Other notes:
 
