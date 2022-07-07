@@ -31,7 +31,7 @@ For more information on the database object refer to: https://registry.terraform
 `Module implementation example:`
 ```hcl
 module "app_rds" {
-  source         = "github.com/StuffNZ/stuff-nebula-terraform-modules//stuff-nebula-rds"
+  source         = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-nebula-rds/1.0.0.zip"
   subnet_ids     = var.subnet_ids
   inbound_sg_ids = [module.app_security_group.sg_pod.id]
   rds_object     = var.rds_object

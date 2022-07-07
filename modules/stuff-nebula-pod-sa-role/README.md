@@ -27,7 +27,7 @@ Example repository: https://github.com/StuffNZ/stuff-eventing-service
 `Module and policy attachment implementation example:`
 ```hcl
 module "app_service_account" {
-  source             = "github.com/StuffNZ/stuff-nebula-terraform-modules//stuff-nebula-pod-sa-role"
+  source             = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-nebula-pod-sa-role/1.0.0.zip"
   name               = var.name
   oidc_issuer_url    = var.oidc_issuer_url
   namespace          = var.namespace
