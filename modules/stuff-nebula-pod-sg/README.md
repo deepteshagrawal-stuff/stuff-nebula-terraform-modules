@@ -17,7 +17,7 @@ vpc_id | ID of the VPC that the security group is to be generated in | null
 `Module implementation example:` 
 ```hcl
 module "app_security_group" {
-  source       = "github.com/StuffNZ/stuff-nebula-terraform-modules//stuff-nebula-pod-sg"
+  source       = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-nebula-pod-sg/1.0.0.zip"
   vpc_id       = var.vpc_id
   sg_node_id   = var.sg_node_id
   service_name = var.name
