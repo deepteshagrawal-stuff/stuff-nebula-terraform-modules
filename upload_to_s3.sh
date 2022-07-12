@@ -1,6 +1,6 @@
 # export BUCKET_NAME=$(terraform output -raw bucket_id)
 echo "$(ls zips)"
-echo "$(ls zip/*)"
+echo "$(ls zips/*)"
 if [ -d ./zips/* ]; then 
     for module in ./zips/*; do
         echo "Module found : $module"
