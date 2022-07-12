@@ -3,9 +3,9 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "sg_node_id" {
-  description = "ID of the node security group"
-  type        = string
+variable "connected_sg_ids" {
+  description = "List of security group ID's you want the generated sg to provide inbound access to. These security group ids also provide inbound access for the generated security group."
+  type        = list(string)
 }
 
 variable "service_name" {

@@ -7,7 +7,7 @@ resource "aws_security_group" "sg_pod" {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    security_groups = [var.sg_node_id]
+    security_groups = var.connected_sg_ids
   }
 
   egress {
@@ -20,9 +20,10 @@ resource "aws_security_group" "sg_pod" {
 }
 
 resource "aws_security_group_rule" "pod_to_node_all_traffic" {
-  description              = "allow SG_POD to connect to NODE_GROUP_SG"
+  count = length(var.connected_sg_ids)
+  description              = "allow SG_POD inbound to connected security groups"
   type                     = "ingress"
-  security_group_id        = var.sg_node_id
+  security_group_id        = var.connected_sg_ids[count.index]
   protocol                 = "-1"
   from_port                = 0
   to_port                  = 0
