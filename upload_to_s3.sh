@@ -1,13 +1,9 @@
-# export BUCKET_NAME=$(terraform output -raw bucket_id)
+export BUCKET_NAME=$(terraform output -raw bucket_id)
+echo "Zip Directory:"
 echo "$(ls zips/*/*)"
-if [[ -d ./zips/* ]]; then 
-    for module in ./zips/*; do
-        # echo "Module found : $module"
-        for version in ./zips/$(basename $module)/*; do
-            # echo "Version of $module found: $version"
-            aws s3 cp ./zips/$(basename $module)/* s3://$BUCKET_NAME/$(basename $module)/$(basename $version)
-        done
+for module in ./zips/*; do
+    for version in ./zips/$(basename $module)/*; do
+        aws s3 cp ./zips/$(basename $module)/* s3://$BUCKET_NAME/$(basename $module)/$(basename $version)
     done
-else 
-    echo "No modules to upload!"
-fi
+done
+echo "Finished uploading available directorys"
