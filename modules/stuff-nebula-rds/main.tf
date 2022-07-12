@@ -24,7 +24,7 @@ resource "aws_db_instance" "rds" {
   engine_version              = var.rds_object.engine_version
   instance_class              = var.rds_object.instance_class
   username                    = var.rds_object.username
-  password                    = var.rds_object.password
+  password                    = var.rds_password
   skip_final_snapshot         = var.rds_object.skip_final_snapshot
   vpc_security_group_ids      = [aws_security_group.rds_sg.id]
   db_subnet_group_name        = aws_db_subnet_group.default.name
