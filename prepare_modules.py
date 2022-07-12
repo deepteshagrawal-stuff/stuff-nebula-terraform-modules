@@ -25,7 +25,7 @@ def main():
                 zip_folder(data["current-version"], module_dir, module_zip_dir)
                 print(module + ": Zippped successfully...")
                 update_versions_file(version_file, data)
-                print(module + ": Version file updated!")
+                print(module + ": Version file updated! New version: " + data["current-version"])
             else:
                 print(module + ":No version set or the version already exists!")
         else:
