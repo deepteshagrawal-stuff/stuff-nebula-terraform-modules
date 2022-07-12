@@ -20,9 +20,13 @@ variable "rds_object" {
     engine_version      = string
     instance_class      = string
     username            = string
-    password            = string
     skip_final_snapshot = bool
   })
+}
+
+variable "rds_password" {
+  description = "Password for the RDS is passed seperatly from the rest of the object. This allows for passing as CLI argument when running Terraform."
+  type        = string
 }
 
 /* VPC id to deploy the RDS into */
