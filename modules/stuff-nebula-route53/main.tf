@@ -6,10 +6,10 @@ resource "aws_route53_record" "route53-record" {
 
   records = [
     {
-      name    = var.alias_name
+      name    = var.alias
       type    = var.record_type
       alias   = {
-        name    = var.alias_name
+        name    = var.alias
         zone_id = var.hosted_zone   
       }
     }
