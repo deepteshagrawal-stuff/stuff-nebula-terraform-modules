@@ -22,8 +22,3 @@ variable "ttl" {
   type = string
   description = "The time to live for the record" 
 }
-
-variable "alias_name" {
-  type = string
-  description = "The name of the alias the route53 will point to" 
-}
