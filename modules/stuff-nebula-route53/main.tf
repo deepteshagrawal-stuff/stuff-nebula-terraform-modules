@@ -1,4 +1,4 @@
-resource "aws_route53_record" "route53-record" {
+resource "aws_route53_record" "default" {
   zone_id = var.hosted_zone
   name    = var.record_name
   type    = var.record_type
