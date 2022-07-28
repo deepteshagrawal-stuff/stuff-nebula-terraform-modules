@@ -27,6 +27,7 @@ variable "rds_object" {
 variable "rds_password" {
   description = "Password for the RDS. Passed seperatly from the rest of the object - allows for passing as CLI argument when running Terraform."
   type        = string
+  sensitive   = true
 }
 
 /* VPC id to deploy the RDS into */
