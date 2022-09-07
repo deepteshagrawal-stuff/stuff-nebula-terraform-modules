@@ -14,7 +14,7 @@ resource "aws_iam_role" "app" {
           "Condition" : {
             "StringLike" : {
               "${var.oidc_issuer_url}:aud" : "sts.amazonaws.com",
-              "${var.oidc_issuer_url}:sub" : "system:serviceaccount:${var.namespace}:${var.project_name}"
+              "${var.oidc_issuer_url}:sub" : "system:serviceaccount:${var.namespace}:${var.service_account}*"
             }
           }
         }
