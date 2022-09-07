@@ -12,9 +12,9 @@ resource "aws_iam_role" "app" {
           },
           "Action" : "sts:AssumeRoleWithWebIdentity",
           "Condition" : {
-            "StringEquals" : {
+            "StringLike" : {
               "${var.oidc_issuer_url}:aud" : "sts.amazonaws.com",
-              "${var.oidc_issuer_url}:sub" : "system:serviceaccount:${var.namespace}:${var.name}"
+              "${var.oidc_issuer_url}:sub" : "system:serviceaccount:${var.namespace}:${var.project_name}"
             }
           }
         }
