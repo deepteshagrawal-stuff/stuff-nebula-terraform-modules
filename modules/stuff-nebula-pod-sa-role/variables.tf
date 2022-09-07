@@ -23,7 +23,7 @@ variable "cluster_account_id" {
   type        = string
 }
 
-variable "project_name" {
-  description = "Name of the project the SSM service account is going to be used for"
+variable "service_account" {
+  description = "Name of the SSM service account is going to be used for"
   type        = string
 }
