@@ -22,3 +22,8 @@ variable "cluster_account_id" {
   description = "AWS account ID that holds the cluster that the service account is being deployed to"
   type        = string
 }
+
+variable "project_name" {
+  description = "Name of the project the SSM service account is going to be used for"
+  type        = string
+}
