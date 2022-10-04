@@ -10,20 +10,6 @@ variable "inbound_sg_ids" {
   type        = list(string)
 }
 
-variable "rds_object" {
-  description = "Contains all of the values required to generate a RDS instance"
-  type = object({
-    db_name             = string
-    identifier          = string
-    allocated_storage   = number
-    engine              = string
-    engine_version      = string
-    instance_class      = string
-    username            = string
-    skip_final_snapshot = bool
-  })
-}
-
 variable "rds_password" {
   description = "Password for the RDS. Passed seperatly from the rest of the object - allows for passing as CLI argument when running Terraform."
   type        = string
@@ -33,5 +19,41 @@ variable "rds_password" {
 /* VPC id to deploy the RDS into */
 variable "vpc_id" {
   description = "VPC_ID of the VPC the RDS instance is being deployed onto"
+  type        = string
+}
+
+variable "db_name" {
+  description = "Name of rds db"
+  type        = string
+}
+
+variable "identifier" {
+  description = "identifier of rds"
+  type        = string
+}
+variable "allocated_storage" {
+  description = "Allocated storage of rds"
+  type        = string
+}
+variable "engine" {
+  description = "Engine used in rds"
+  type        = string
+}
+variable "engine_version" {
+  description = " "
+  type        = string
+}
+
+variable "instance_class" {
+  description = "Instance class of rds"
+  type        = string
+}
+variable "username" {
+  description = "Username of rds"
+  type        = string
+}
+
+variable "skip_final_snapshot" {
+  description = "Skip final snapshot of rds"
   type        = string
 }
