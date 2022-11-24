@@ -3,7 +3,7 @@ output "docdb_sg" {
   value       = aws_security_group.docdb_sg
 }
 
-output "docdb_instance" {
-  description = "Instance of the DocumentDB"
-  value       = aws_db_instance.docdb
+output "docdb_endpoint" {
+  description = "Endpoint of the DocumentDB"
+  value       = aws_docdb_cluster.docdb_cluster.endpoint
 }
