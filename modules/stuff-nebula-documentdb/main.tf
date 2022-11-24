@@ -19,6 +19,7 @@ resource "aws_security_group" "docdb_sg" {
 resource "aws_docdb_cluster" "docdb_cluster" {
   cluster_identifier      = var.cluster_id
   db_subnet_group_name    = aws_db_subnet_group.default.name
+  vpc_security_group_ids  = [aws_security_group.docdb_sg.id]
   engine                  = var.engine
   engine_version          = var.engine_version
   master_username         = var.username
