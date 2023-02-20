@@ -4,7 +4,6 @@ variable "property_name" {
 }
 
 variable "akamai_group_name" {
-  description = "Name of the group in Akamai."
   type        = string
   default     = "STUFF LIMITED-V-3XKYJ97"
 }

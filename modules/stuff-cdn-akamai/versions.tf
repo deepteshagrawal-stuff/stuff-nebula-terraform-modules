@@ -1,18 +1,13 @@
 terraform {
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = ">= 3.72"
+    akamai = {
+      source = "akamai/akamai"
+      version = "3.3.0"
     }
-    null = {
-      source  = "hashicorp/null"
-      version = ">= 3.0"
-    }
-    tls = {
-      source  = "hashicorp/tls"
-      version = ">= 2.2"
+    local = {
+      source = "hashicorp/local"
+      version = "2.3.0"
     }
   }
-
   required_version = ">= 0.14"
 }
