@@ -29,14 +29,6 @@ variable "origin_hostname" {
   type = string
 }
 
-variable "contract_id" {
-  type = string
-}
-
-variable "group_id" {
-  type = string
-}
-
 variable "rules" {
   type = string
 }
@@ -45,7 +37,7 @@ variable "certificate_id" {
   type = string
 }
 
-variable "cp_code" {
+variable "cp_code_name" {
   type = string
 }
 
