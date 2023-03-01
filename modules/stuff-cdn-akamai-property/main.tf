@@ -8,11 +8,10 @@ data "akamai_group" "group" {
 }
 
 resource "akamai_property" "property" {
-  name = var.property_name
-  product_id     = var.product_id
+  name               = var.property_name
+  product_id         = var.product_id
   contract_id        = data.akamai_contract.contract.id
   group_id           = data.akamai_group.group.id
-  cp_code  = "${akamai_cp_code.cp_code.id}"
   hostnames {                   
       cname_from = var.cname_from
       cname_to = akamai_edge_hostname.edge_hostname.edge_hostname
@@ -38,13 +37,6 @@ resource "akamai_property_activation" "production" {
   depends_on = [
     akamai_property_activation.staging
   ]
-}
-
-resource "akamai_cp_code" "cp_code" {
-  name     = var.cp_code_name
-  contract_id        = data.akamai_contract.contract.id
-  group_id           = data.akamai_group.group.id
-  product_id  = var.product_id
 }
 
 resource "akamai_edge_hostname" "edge_hostname" {

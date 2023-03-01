@@ -5,7 +5,6 @@ variable "property_name" {
 
 variable "akamai_group_name" {
   type        = string
-  default     = "STUFF LIMITED-V-3XKYJ97"
 }
 
 variable "cname_from" {
@@ -18,7 +17,6 @@ variable "edge_hostname" {
 
 variable "product_id" {
   type    = string
-  default = "prd_SPM"
 }
 
 variable "email" {
@@ -34,10 +32,6 @@ variable "rules" {
 }
 
 variable "certificate_id" {
-  type = string
-}
-
-variable "cp_code_name" {
   type = string
 }
 
