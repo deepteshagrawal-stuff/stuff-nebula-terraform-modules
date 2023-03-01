@@ -3,7 +3,7 @@ variable "property_name" {
   type        = string
 }
 
-variable "akamai_group_name" {
+variable "group_name" {
   type        = string
 }
 
@@ -17,6 +17,7 @@ variable "edge_hostname" {
 
 variable "product_id" {
   type    = string
+  default = "prd_SPM"
 }
 
 variable "email" {

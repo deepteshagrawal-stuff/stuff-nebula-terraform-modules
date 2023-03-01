@@ -1,9 +1,9 @@
 data "akamai_contract" "contract" {
-  group_name = var.akamai_group_name
+  group_name = var.group_name
 }
 
 data "akamai_group" "group" {
-  group_name = var.akamai_group_name
+  group_name = var.group_name
   contract_id = data.akamai_contract.contract.id
 }
 
