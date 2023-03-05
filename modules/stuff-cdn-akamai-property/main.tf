@@ -12,10 +12,13 @@ resource "akamai_property" "property" {
   product_id         = var.product_id
   contract_id        = data.akamai_contract.contract.id
   group_id           = data.akamai_group.group.id
-  hostnames {                   
-      cname_from = var.cname_from
-      cname_to = akamai_edge_hostname.edge_hostname.edge_hostname
-      cert_provisioning_type = "CPS_MANAGED"
+  dynamic "hostnames" { 
+      for_each = var.hostnames
+      content {                  
+        cname_from = hostnames.value["cname_from"]
+        cname_to = hostnames.value["edge_hostname"]
+        cert_provisioning_type = "CPS_MANAGED"
+      }
   }
   rule_format = "v2023-01-05"
   rules = var.rules
