@@ -16,10 +16,6 @@ variable "email" {
   type = set(string)
 }
 
-variable "origin_hostname" {
-  type = string
-}
-
 variable "rules" {
   type = string
 }
