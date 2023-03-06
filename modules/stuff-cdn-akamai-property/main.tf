@@ -43,10 +43,11 @@ resource "akamai_property_activation" "production" {
 }
 
 resource "akamai_edge_hostname" "edge_hostname" {
+  count = length(var.hostnames)
   product_id       = var.product_id
   contract_id        = data.akamai_contract.contract.id
   group_id           = data.akamai_group.group.id
-  edge_hostname = var.edge_hostname
+  edge_hostname = var.hostnames[count.index].edge_hostname
   ip_behavior   = "IPV6_COMPLIANCE"
   certificate  = var.certificate_id
 }
