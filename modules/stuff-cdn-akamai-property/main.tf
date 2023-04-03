@@ -32,6 +32,7 @@ resource "akamai_property_activation" "staging" {
 }
 
 resource "akamai_property_activation" "production" {
+  count = var.auto_activate_production ? 1 : 0
   property_id = akamai_property.property.id
   contact  = var.email
   version  = akamai_property.property.latest_version

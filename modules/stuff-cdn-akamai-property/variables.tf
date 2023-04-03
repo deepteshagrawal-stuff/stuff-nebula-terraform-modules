@@ -20,6 +20,11 @@ variable "rules" {
   type = string
 }
 
+variable "auto_activate_production" {
+  type = bool
+  default = false
+}
+
 variable "certificate_id" {
   type = string
 }
