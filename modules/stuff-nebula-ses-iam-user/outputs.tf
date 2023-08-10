@@ -1,7 +1,7 @@
-# output "smtp_username" {
-#   value = aws_iam_access_key.user_access_key.id
-# }
+output "smtp_username" {
+  value = aws_iam_access_key.user_access_key.id
+}
 
-# output "smtp_password" {
-#   value = aws_iam_access_key.user_access_key.ses_smtp_password_v4
-# }
+output "smtp_password" {
+  value = aws_iam_access_key.user_access_key.ses_smtp_password_v4
+}
