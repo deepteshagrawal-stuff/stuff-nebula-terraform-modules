@@ -1,1 +1,1 @@
-## stuff-cdn-akamai-property
+## stuff-nebula-secrets-manager-secret
