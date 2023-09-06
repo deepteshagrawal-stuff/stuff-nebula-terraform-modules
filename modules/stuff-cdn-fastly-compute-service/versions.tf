@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    akamai = {
-      source = "akamai/akamai"
-      version = "3.3.0"
+    fastly = {
+      source  = "fastly/fastly"
+      version = ">= 5.3.1"
     }
     local = {
       source = "hashicorp/local"

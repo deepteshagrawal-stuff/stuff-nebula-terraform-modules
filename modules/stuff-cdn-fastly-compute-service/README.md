@@ -1,1 +1,1 @@
-## stuff-cdn-akamai-property
+## stuff-cdn-fastly-compute-service
