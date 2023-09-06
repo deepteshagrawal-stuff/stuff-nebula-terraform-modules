@@ -12,14 +12,15 @@ variable "activate" {
   default               = false
 }
 
+variable "one_login" {
+  type                  = bool
+}
+
 variable "backend" {
   type                  = list(object({
     name                = string
     address             = string
     port                = number
-    sl_sni_hostname     = string
-    ssl_cert_hostname   = string
-    use_ssl             = bool
   }))
 }
 
