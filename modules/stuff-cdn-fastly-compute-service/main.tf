@@ -14,19 +14,9 @@ resource "fastly_service_compute" "compute_service" {
         address             = backend.value["address"]
         override_host       = backend.value["address"]
         port                = backend.value["port"]
-      }
-    }
-
-    dynamic "backend" { 
-      for_each              = var.ssl_backend
-      content {                  
-        name                = ssl_backend.value["name"]
-        address             = ssl_backend.value["address"]
-        override_host       = ssl_backend.value["address"]
-        ssl_sni_hostname    = ssl_backend.value["address"]
-        ssl_cert_hostname   = ssl_backend.value["address"]
-        use_ssl             = ssl_backend.value["ssl"]
-        port                = ssl_backend.value["port"]
+        ssl_sni_hostname    = backend.value["ssl_sni_hostname"] == "" ? null : backend.value["ssl_sni_hostname"]
+        ssl_cert_hostname   = backend.value["ssl_cert_hostname"] == "" ? null : backend.value["ssl_cert_hostname"]
+        use_ssl             = backend.value["use_ssl"] == "" ? null : backend.value["use_ssl"]
       }
     }
 
