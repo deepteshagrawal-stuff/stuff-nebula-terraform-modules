@@ -12,7 +12,7 @@ variable "activate" {
   default       = false
 }
 
-variable "backends" {
+variable "backend" {
   type          = list(object({
     name        = string
     address     = string
@@ -29,13 +29,13 @@ variable "ssl_backend" {
   }))
 }
 
-variable "domains" {
+variable "domain" {
   type          = list(object({
     name        = string
   }))
 }
 
-variable "resource_links" {
+variable "resource_link" {
   type          = list(object({
     name        = string
     resource_id = string
