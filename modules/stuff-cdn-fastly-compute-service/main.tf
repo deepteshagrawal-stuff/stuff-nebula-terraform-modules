@@ -8,12 +8,12 @@ resource "fastly_service_compute" "compute_service" {
     activate                = var.activate
 
     dynamic "backend" { 
-      for_each              = var.backends
+      for_each              = var.backend
       content {                  
-        name                = backends.value["name"]
-        address             = backends.value["address"]
-        override_host       = backends.value["address"]
-        port                = backends.value["port"]
+        name                = backend.value["name"]
+        address             = backend.value["address"]
+        override_host       = backend.value["address"]
+        port                = backend.value["port"]
       }
     }
 
@@ -31,9 +31,9 @@ resource "fastly_service_compute" "compute_service" {
     }
 
     dynamic "domain" { 
-      for_each              = var.domains
+      for_each              = var.domain
       content {                  
-        name                = domains.value["name"]
+        name                = domain.value["name"]
       }
     }
 
@@ -43,10 +43,10 @@ resource "fastly_service_compute" "compute_service" {
     }
 
     dynamic "resource_link" { 
-      for_each              = var.resource_links
+      for_each              = var.resource_link
       content {                  
-        name                = resource_links.value["name"]
-        resource_id         = resource_links.value["resource_id"]
+        name                = resource_link.value["name"]
+        resource_id         = resource_link.value["resource_id"]
       }
     }
 }
