@@ -7,7 +7,7 @@ variable "name" {
   type                  = string
 }
 
-variable "comment" {
+variable "version_comment" {
   type                  = string
   default               = ""
 }

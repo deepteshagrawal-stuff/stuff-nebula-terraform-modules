@@ -6,8 +6,8 @@ resource "fastly_service_compute" "compute_service" {
 
     name                    = var.name
     activate                = var.activate
-    version_comment         = var.comment
-    
+    version_comment         = var.version_comment
+
     dynamic "backend" { 
       for_each              = var.backend
       content {                  
