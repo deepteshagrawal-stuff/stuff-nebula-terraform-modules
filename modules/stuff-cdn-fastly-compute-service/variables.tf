@@ -7,6 +7,11 @@ variable "name" {
   type                  = string
 }
 
+variable "comment" {
+  type                  = string
+  default               = ""
+}
+
 variable "activate" {
   type                  = bool
   default               = false
