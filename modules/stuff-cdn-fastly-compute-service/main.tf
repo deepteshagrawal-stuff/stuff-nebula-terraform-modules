@@ -19,7 +19,6 @@ resource "fastly_service_compute" "compute_service" {
         ssl_cert_hostname   = backend.value["ssl_cert_hostname"]
         use_ssl             = backend.value["use_ssl"]
         ssl_check_cert      = backend.value["ssl_check_cert"]
-        shield              = backend.value["shield"]
       }
     }
 

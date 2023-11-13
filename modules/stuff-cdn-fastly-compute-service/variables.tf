@@ -28,7 +28,6 @@ variable "backend" {
     port                = number
     use_ssl             = bool
     ssl_check_cert      = bool
-    shield              = string
     ssl_sni_hostname    = string
     ssl_cert_hostname   = string
   }))
