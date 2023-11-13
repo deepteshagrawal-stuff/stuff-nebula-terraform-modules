@@ -26,6 +26,11 @@ variable "backend" {
     name                = string
     address             = string
     port                = number
+    use_ssl             = bool
+    ssl_check_cert      = bool
+    shield              = string
+    ssl_sni_hostname    = string
+    ssl_cert_hostname   = string
   }))
 }
 
@@ -40,19 +45,4 @@ variable "resource_link" {
     name                = string
     resource_id         = string
   }))
-}
-
-variable "use_ssl" {
-  type                  = bool
-  default               = true
-}
-
-variable "ssl_check_cert" {
-  type                  = bool
-  default               = true
-}
-
-variable "shield" {
-  type                  = string
-  default               = ""
 }
