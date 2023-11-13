@@ -15,6 +15,11 @@ resource "fastly_service_compute" "compute_service" {
         address             = backend.value["address"]
         override_host       = backend.value["address"]
         port                = backend.value["port"]
+        ssl_sni_hostname    = backend.value["address"]
+        ssl_cert_hostname   = backend.value["address"]
+        use_ssl             = backend.value["use_ssl"]
+        ssl_check_cert      = backend.value["ssl_check_cert"]
+        shield              = backend.value["shield"]
       }
     }
 
