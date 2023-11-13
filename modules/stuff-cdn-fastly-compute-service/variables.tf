@@ -41,3 +41,18 @@ variable "resource_link" {
     resource_id         = string
   }))
 }
+
+variable "use_ssl" {
+  type                  = bool
+  default               = true
+}
+
+variable "ssl_check_cert" {
+  type                  = bool
+  default               = true
+}
+
+variable "shield" {
+  type                  = string
+  default               = ""
+}
