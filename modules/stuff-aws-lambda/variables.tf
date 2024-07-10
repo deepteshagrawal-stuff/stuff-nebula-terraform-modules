@@ -46,7 +46,7 @@ variable function_timeout {
 }
 
 variable function_env_vars {
-  type = map(object)
+  type = map()
   description = "key value pairs to set as environment variables."
   default = "{}"
 }
