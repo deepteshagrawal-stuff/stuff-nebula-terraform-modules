@@ -28,8 +28,13 @@ jobs:
     - bash: |
         set -e
         for module in ./modules/*; do
+            echo "Initialising & Validating module: $module"
             terraform -chdir=$module init -backend=false
-            terraform -chdir=$module validate
+
+            if ! terraform -chdir=$module validate; then
+              echo "Validation failed for module: $module"
+              exit 1
+            fi
         done
       displayName: Validate all Terraform modules
 
