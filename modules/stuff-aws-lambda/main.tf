@@ -35,3 +35,14 @@ resource "aws_lambda_layer_version" "lambda_layer" {
   layer_name          = var.layer_name
   compatible_runtimes = var.layer_runtimes
 }
+
+module "iamrole_module" {
+  source       = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-aws-iamrole/1.0.0.zip"
+  role_name               = var.function_name + "_lambda_role"
+  role_description        = "Lambda role for " + var.function_name
+  role_service            = "lambda.amazonaws.com"
+  policy_name             = "lambda_cloudwatch_policy"
+  policy_description      = "Lambda Cloudwatch policy for Creating Log Group, Creating Log Stream and Adding Log Events."
+  allow_policy_actions    List of actions allowed by the policy.
+  allow_policy_resources  List of ARNs for resources allowed by the policy.
+}
