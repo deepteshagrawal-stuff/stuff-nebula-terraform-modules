@@ -51,14 +51,12 @@ data "aws_iam_policy_document" "lambda_cloudwatch_policy" {
 }
 
 locals {
-  inline_policies = jsonencode({
-    default = {
-      cloudwatch_logging_policy = {
-        name   = "cloudwatch_logging_policy"
-        policy = data.aws_iam_policy_document.lambda_cloudwatch_policy.json
-      }
+  inline_policies = {
+    cloudwatch_logging_policy = {
+      name   = "cloudwatch_logging_policy"
+      policy = data.aws_iam_policy_document.lambda_cloudwatch_policy.json
     }
-  })
+  }
 }
 
 module "iamrole_policy_module" {
