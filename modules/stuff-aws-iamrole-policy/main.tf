@@ -48,6 +48,6 @@ resource "aws_iam_policy" "policy" {
 
 resource "aws_iam_role_policy_attachment" "role_policy_attach" {
   count      = var.create_policy_attachment ? 1 : 0
-  role       = aws_iam_role.role.arn
-  policy_arn = aws_iam_policy.policy.arn
+  role       = aws_iam_role.role[count.index].arn
+  policy_arn = aws_iam_policy.policy[count.index].arn
 }
