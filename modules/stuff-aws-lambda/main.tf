@@ -53,8 +53,8 @@ data "aws_iam_policy_document" "lambda_cloudwatch_policy" {
 locals {
   inline_policies = {
     cloudwatch_logging_policy = {
-      name   = "cloudwatch_logging_policy"
-      policy = data.aws_iam_policy_document.lambda_cloudwatch_policy.json
+      name            = "cloudwatch_logging_policy"
+      policy_document = data.aws_iam_policy_document.lambda_cloudwatch_policy.json
     }
   }
 }
