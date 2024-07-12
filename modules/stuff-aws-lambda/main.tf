@@ -36,13 +36,34 @@ resource "aws_lambda_layer_version" "lambda_layer" {
   compatible_runtimes = var.layer_runtimes
 }
 
-module "iamrole_module" {
-  source       = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-aws-iamrole/1.0.0.zip"
+data "aws_iam_policy_document" "lambda_cloudwatch_policy" {
+  statement {
+    effect    = "Allow"
+    actions   = ["logs:CreateLogGroup"]
+    resources = ["arn:aws:logs:ap-southeast-2:*:*"]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["logs:CreateLogStream", "logs:PutLogEvents"]
+    resources = ["arn:aws:logs:ap-southeast-2:*:log-group:/aws/lambda/${var.function_name}:*"]
+  }
+}
+
+locals {
+  inline_policies = jsonencode({
+                      cloudwatch_logging_policy = {
+                        name   = "cloudwatch_logging_policy"
+                        policy = data.aws_iam_policy_document.lambda_cloudwatch_policy.json
+                      }
+                    })
+}
+
+module "iamrole_policy_module" {
+  source                  = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-aws-iamrole-policy/1.0.1.zip"
+  create_role             = true
   role_name               = var.function_name + "_lambda_role"
   role_description        = "Lambda role for " + var.function_name
   role_service            = "lambda.amazonaws.com"
-  policy_name             = "lambda_cloudwatch_policy"
-  policy_description      = "Lambda Cloudwatch policy for Creating Log Group, Creating Log Stream and Adding Log Events."
-  allow_policy_actions    List of actions allowed by the policy.
-  allow_policy_resources  List of ARNs for resources allowed by the policy.
+  inline_policies         = local.inline_policies
 }

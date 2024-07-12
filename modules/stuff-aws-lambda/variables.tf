@@ -34,9 +34,9 @@ variable function_runtime {
 }
 
 variable create_lambda_layer {
-  type = string
-  description = "any non blank value. default to no to create/use lambda layer."
-  default = ""
+  type = bool
+  description = "does lambda layer need to be created. default to false for not creating/using lambda layer."
+  default = false
 }
 
 variable function_timeout {
@@ -52,9 +52,9 @@ variable function_env_vars {
 }
 
 variable create_lambda_url {
-  type = string
-  description = "any non blank value. default to no to generate function url."
-  default = ""
+  type = bool
+  description = "does lambda url need to be created. default to false for not generating function url."
+  default = false
 }
 
 variable layer_filename {
