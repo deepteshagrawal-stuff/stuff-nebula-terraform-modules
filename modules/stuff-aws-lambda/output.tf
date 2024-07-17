@@ -9,3 +9,7 @@ output "lambda_url_details" {
 output "lambda_layer_details" {
     value = aws_lambda_layer_version.lambda_layer
 }
+
+output "lambda_role_details" {
+  value = module.iamrole_policy_module.iam_role_details
+}

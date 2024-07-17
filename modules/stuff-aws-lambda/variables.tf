@@ -1,3 +1,8 @@
+variable account_number {
+  type = string
+  description = "account number to deploy the lambda function in."
+}
+
 variable function_filename {
   type = string
   description = "zip file name along with path."
@@ -18,11 +23,6 @@ variable function_sourcefile {
   description = "source file along with path to be zipped."
 }
 
-variable function_role {
-  type = string
-  description = "iam role resource arn."
-}
-
 variable function_handler {
   type = string
   description = "handler method in the source file."
@@ -31,12 +31,6 @@ variable function_handler {
 variable function_runtime {
   type = string
   description = "function supported runtime."
-}
-
-variable create_lambda_layer {
-  type = bool
-  description = "does lambda layer need to be created. default to false for not creating/using lambda layer."
-  default = false
 }
 
 variable function_timeout {
@@ -48,6 +42,7 @@ variable function_timeout {
 variable function_env_vars {
   type = map(string)
   description = "key value pairs to set as environment variables."
+  default = {}
 }
 
 variable create_lambda_url {
@@ -56,17 +51,21 @@ variable create_lambda_url {
   default = false
 }
 
-variable layer_filename {
-  type = string
-  description = "zip layer file name along with its path."
+variable layer_info {
+  type = map(object({
+    filename  = string        # zip layer file name along with its path.
+    name      = string        # name of the layer.
+    runtimes  = list(string)  # lambda function layer supported runtimes.
+  }))
+  description = "it is a map to support multiple layers. it needs to be provided if create_lambda_layer is true."
+  default = {}
 }
 
-variable layer_name {
-  type = string
-  description = "name of the layer."
-}
-
-variable layer_runtimes {
-  type = list(string)
-  description = "lambda function layer supported runtimes."
+variable "xtended_inline_policies" {
+  type = map(object({
+    name           = string
+    policy_document = any
+  }))
+  description = "a map of inline policies having name and policy document in json format. default is empty map."
+  default = {}
 }

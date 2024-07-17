@@ -7,12 +7,12 @@ data "archive_file" "lambda_archive" {
 resource "aws_lambda_function" "lambda_function" {
   filename         = var.function_filename # zip file name
   function_name    = var.function_name
-  description      = var.function_description 
+  description      = var.function_description
   source_code_hash = data.archive_file.lambda_archive.output_base64sha256
-  role             = var.function_role
+  role             = module.iamrole_policy_module.iam_role_details.arn
   handler          = var.function_handler
   runtime          = var.function_runtime
-  layers           = var.create_lambda_layer ? [aws_lambda_layer_version.lambda_layer[0].arn] : []
+  layers           = values(aws_lambda_layer_version.lambda_layer)[*].arn
   timeout          = var.function_timeout
 
   # Environment variables
@@ -29,34 +29,35 @@ resource "aws_lambda_function_url" "lambda_url" {
 }
 
 resource "aws_lambda_layer_version" "lambda_layer" {
-  count = var.create_lambda_layer ? 1 : 0  # Conditional creation based on variable
+  for_each = var.layer_info
 
-  filename            = var.layer_filename
-  layer_name          = var.layer_name
-  compatible_runtimes = var.layer_runtimes
+  filename            = each.value.filename
+  layer_name          = each.value.name
+  compatible_runtimes = each.value.runtimes
 }
 
 data "aws_iam_policy_document" "lambda_cloudwatch_policy" {
   statement {
     effect    = "Allow"
     actions   = ["logs:CreateLogGroup"]
-    resources = ["arn:aws:logs:ap-southeast-2:*:*"]
+    resources = ["arn:aws:logs:ap-southeast-2:${var.account_number}:*"]
   }
 
   statement {
     effect    = "Allow"
     actions   = ["logs:CreateLogStream", "logs:PutLogEvents"]
-    resources = ["arn:aws:logs:ap-southeast-2:*:log-group:/aws/lambda/${var.function_name}:*"]
+    resources = ["arn:aws:logs:ap-southeast-2:${var.account_number}:log-group:/aws/lambda/${var.function_name}:*"]
   }
 }
 
 locals {
-  inline_policies = {
+  inline_policies = merge(var.xtended_inline_policies,
+  {
     cloudwatch_logging_policy = {
       name            = "cloudwatch_logging_policy"
       policy_document = data.aws_iam_policy_document.lambda_cloudwatch_policy.json
     }
-  }
+  })
 }
 
 module "iamrole_policy_module" {
@@ -65,11 +66,5 @@ module "iamrole_policy_module" {
   role_name               = "${var.function_name}_lambda_role"
   role_description        = "Lambda role for ${var.function_name}"
   role_service            = "lambda.amazonaws.com"
-  inline_policies         = local.inline_policies
-  create_policy           = false
-  policy_name             = ""
-  policy_description      = ""
-  allow_policy_actions    = []
-  allow_policy_resources  = []
-  create_policy_attachment = false
+  role_inline_policies    = local.inline_policies
 }
