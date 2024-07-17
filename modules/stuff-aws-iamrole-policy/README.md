@@ -95,9 +95,11 @@ module "iamrole_policy_module" {
 ```
 
 5. Creating policy attachment.
+```
 module "iamrole_policy_module" {
   source                  = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-aws-iamrole-policy/1.0.2.zip"
   create_policy_attachment = true
   role_to_attach          = "name of the role"
   policy_to_attach        = "arn of the policy"
 }
+```

@@ -45,13 +45,13 @@ Only default attribute is the only way to differentiate between a mandatory and 
 
 Variable | Description | Default
 -------------------|----------------------------------------------
-function_filename	    | Zip file name along with path.
-function_name	        | Lambda function name.
-function_description	| Lambda function description.
-function_sourcefile	    | Source file along with path to be zipped.
-function_role	        | IAM role resource arn.
-function_handler	    | Handler method in the source file.
-function_runtime	    | Function supported runtime.
+function_filename	    | Zip file name along with path. |
+function_name	        | Lambda function name. |
+function_description	| Lambda function description. |
+function_sourcefile	  | Source file along with path to be zipped. |
+function_role	        | IAM role resource arn. |
+function_handler	    | Handler method in the source file. |
+function_runtime	    | Function supported runtime. |
 function_timeout	    | Lambda function timeout in seconds. | 30 seconds
 function_env_vars	    | Key value pairs to set as environment variables. | Empty Map
 create_lambda_url	    | Does lambda url need to be created. Function URL will not generated if its false. | False
