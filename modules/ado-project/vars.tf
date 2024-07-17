@@ -7,12 +7,12 @@ variable ado_project {
         workItemTemplate   = string
         
         features = object({
-            boards    = bool
-            repos     = bool
-            pipelines = bool
-            testPlans = bool
-            artifacts = bool
-            wiki      = bool
+            boards    = string
+            repos     = string
+            pipelines = string
+            testPlans = string
+            artifacts = string
+            wiki      = string
         })
     }))
     default = {}
