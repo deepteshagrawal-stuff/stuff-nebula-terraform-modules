@@ -44,7 +44,7 @@ module "iamrole_policy_module" {
 Only default attribute is the only way to differentiate between a mandatory and an optional attribute and hence most of the attributes are kept Blank or Empty to avoid defining them unnecessarily.
 
 Variable | Description | Default
--------------------|----------------------------------------------
+-------------------|----------------------------------------|------
 function_filename	    | Zip file name along with path. |
 function_name	        | Lambda function name. |
 function_description	| Lambda function description. |
@@ -60,7 +60,7 @@ xtended_inline_policies | It is a map of inline policies having name and policy 
 
 
 ## **Usage**
-
+```
 module "stuff_aws_lambda_module" {
   source                    = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-aws-lambda/1.0.0.zip"
   function_name             = "Function Name"
@@ -76,3 +76,4 @@ module "stuff_aws_lambda_module" {
   account_number            = var.account_number
   xtended_inline_policies   = local.inline_policies             # Not Mandatory
 }
+```
