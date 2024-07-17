@@ -14,11 +14,11 @@ data "aws_iam_policy_document" "assume_role" {
 resource "aws_iam_role" "role" {
   count              = var.create_role ? 1 : 0
   name               = var.role_name
-  description        = var.role_description 
+  description        = var.role_description
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 
   dynamic "inline_policy" {
-    for_each = var.inline_policies
+    for_each = var.role_inline_policies
 
     content {
       name   = inline_policy.value.name
@@ -48,6 +48,6 @@ resource "aws_iam_policy" "policy" {
 
 resource "aws_iam_role_policy_attachment" "role_policy_attach" {
   count      = var.create_policy_attachment ? 1 : 0
-  role       = aws_iam_role.role[count.index].arn
-  policy_arn = aws_iam_policy.policy[count.index].arn
+  role       = var.create_role ? aws_iam_role.role[count.index].name : var.role_to_attach
+  policy_arn = var.create_policy ? aws_iam_policy.policy[count.index].arn : var.policy_to_attach
 }

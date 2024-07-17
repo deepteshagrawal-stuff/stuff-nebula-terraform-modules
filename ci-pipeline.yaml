@@ -9,6 +9,12 @@ trigger:
     exclude:
     - 'README.md'
 
+pr:
+  branches:
+    include:
+      - '*'
+  drafts: false
+
 pool:
   vmImage: ubuntu-latest
 
@@ -26,7 +32,9 @@ jobs:
         terraformVersion: 'latest'
 
     - bash: |
+        set -e
         for module in ./modules/*; do
+            echo "Initialising & Validating module: $module"
             terraform -chdir=$module init -backend=false
             terraform -chdir=$module validate
         done
@@ -67,7 +75,7 @@ jobs:
         scriptPath: './prepare_modules.py'
         failOnStderr: true
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-    
+
     - task: AWSShellScript@1
       displayName: Upload New Modules
       inputs:
