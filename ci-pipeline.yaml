@@ -35,8 +35,20 @@ jobs:
         set -e
         for module in ./modules/*; do
             echo "Initialising & Validating module: $module"
-            terraform -chdir=$module init -backend=false
-            terraform -chdir=$module validate
+            # terraform -chdir=$module init -backend=false
+            # terraform -chdir=$module validate
+            - task: TerraformTaskV3@3
+                displayName: Init Terraform
+                inputs:
+                  provider: 'aws'
+                  command: 'init'
+                  backendServiceAWS: 'SHARED-SERVICES-nebula-base-TerraformServiceAccount'
+            - task: TerraformTaskV3@3
+                displayName: Validate Terraform
+                inputs:
+                  provider: 'aws'
+                  command: 'validate'
+                  backendServiceAWS: 'SHARED-SERVICES-nebula-base-TerraformServiceAccount'
         done
       displayName: Validate all Terraform modules
 
