@@ -33,12 +33,15 @@ jobs:
 
     - bash: |
         set -e
+        echo "Using Azure service connection: $AZURE_SERVICE_CONNECTION_NAME"
         for module in ./modules/*; do
             echo "Initialising & Validating module: $module"
             terraform -chdir=$module init -backend=false
             terraform -chdir=$module validate
         done
       displayName: Validate all Terraform modules
+      env:
+        AZURE_SERVICE_CONNECTION_NAME: 'SHARED-SERVICES-nebula-base-TerraformServiceAccount'
 
     - task: TerraformTaskV3@3
       displayName: Init Terraform
