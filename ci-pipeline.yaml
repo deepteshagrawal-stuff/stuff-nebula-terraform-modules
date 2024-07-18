@@ -32,7 +32,7 @@ jobs:
         terraformVersion: 'latest'
 
     - task: AWSShellScript@1
-      displayName: 'Init and Validate module.'
+      displayName: 'Init and Validate Module'
       inputs:
         awsCredentials: 'AWS-SHARED-SERVICE'
         regionName: 'ap-southeast-2'
