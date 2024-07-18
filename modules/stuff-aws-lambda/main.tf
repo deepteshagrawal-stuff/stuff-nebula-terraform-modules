@@ -61,7 +61,7 @@ locals {
 }
 
 module "iamrole_policy_module" {
-  source                  = "../stuff-aws-iamrole-policy/"
+  source                  = "s3::https://stuff-terraform-nebula-modules.s3.ap-southeast-2.amazonaws.com/stuff-aws-iamrole-policy/1.0.2.zip"
   create_role             = true
   role_name               = "${var.function_name}_lambda_role"
   role_description        = "Lambda role for ${var.function_name}"
