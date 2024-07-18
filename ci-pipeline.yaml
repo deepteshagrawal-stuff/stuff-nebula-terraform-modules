@@ -31,14 +31,19 @@ jobs:
       inputs:
         terraformVersion: 'latest'
 
-    - bash: |
-        set -e
-        for module in ./modules/*; do
-            echo "Initialising & Validating module: $module"
-            terraform -chdir=$module init -backend=false
-            terraform -chdir=$module validate
-        done
-      displayName: Validate all Terraform modules
+    - task: AWSShellScript@1
+      displayName: 'Init and Validate module.'
+      inputs:
+        awsCredentials: 'AWS-SHARED-SERVICE'
+        regionName: 'ap-southeast-2'
+        scriptType: 'inline'
+        inlineScript: |
+          set -e
+          for module in ./modules/*; do
+              echo "Initialising & Validating module: $module"
+              terraform -chdir=$module init -backend=false
+              terraform -chdir=$module validate
+          done
 
     - task: TerraformTaskV3@3
       displayName: Init Terraform
