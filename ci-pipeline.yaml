@@ -31,41 +31,14 @@ jobs:
       inputs:
         terraformVersion: 'latest'
 
-    - task: AzureCLI@2
-      displayName: 'Azure CLI - Get AWS credentials'
-      inputs:
-        azureSubscription: 'SHARED-SERVICES-nebula-base-TerraformServiceAccount'  # Replace with your Azure service connection name
-        scriptType: 'bash'
-        scriptLocation: 'inline'
-        inlineScript: |
-          # Use Azure CLI to get credentials
-          aws_access_key_id=$(az account get-access-token --resource https://management.core.windows.net/ --query accessToken -o tsv)
-          aws_secret_access_key=$(az account get-access-token --resource https://management.core.windows.net/ --query refreshToken -o tsv)
-
-          echo "key id: $aws_access_key_id"
-          echo "secret access key: $aws_secret_access_key"
-
-          # Set AWS credentials as environment variables
-          export AWS_ACCESS_KEY_ID="$aws_access_key_id"
-          export AWS_SECRET_ACCESS_KEY="$aws_secret_access_key"
-
-          for module in ./modules/*; do
-            echo "Initialising & Validating module: $module"
-            terraform -chdir=$module init -backend=false
-            terraform -chdir=$module validate
-          done
-
     - bash: |
         set -e
-        echo "Using Azure service connection: $AZURE_SERVICE_CONNECTION_NAME"
         for module in ./modules/*; do
             echo "Initialising & Validating module: $module"
             terraform -chdir=$module init -backend=false
             terraform -chdir=$module validate
         done
       displayName: Validate all Terraform modules
-      env:
-        AZURE_SERVICE_CONNECTION_NAME: 'SHARED-SERVICES-nebula-base-TerraformServiceAccount'
 
     - task: TerraformTaskV3@3
       displayName: Init Terraform
