@@ -20,12 +20,13 @@ def main():
             # Ensures version set for this release is not included in past versions
             if not data["current-version"] in data["versions"] and not data["current-version"] == "":
                 print(module + ": release version set... preparing for release...")
+                current_version = data["current-version"]
                 module_zip_dir = os.path.join(zip_dir, module)
                 os.mkdir(module_zip_dir)
-                zip_folder(data["current-version"], module_dir, module_zip_dir)
+                zip_folder(current_version, module_dir, module_zip_dir)
                 print(module + ": Zippped successfully...")
                 update_versions_file(version_file, data)
-                print(module + ": Version file updated! New version: " + data["current-version"])
+                print(module + ": Version file updated! New version: " + current_version)
             else:
                 print(module + ":No version set or the version already exists!")
         else:
