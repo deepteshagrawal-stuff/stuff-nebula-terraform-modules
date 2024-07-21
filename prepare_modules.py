@@ -9,7 +9,9 @@ zip_dir = './zips'
 def main():
     os.mkdir(zip_dir)
     #Iterate modules directory
+    print("Inside main function")
     for module in os.listdir(modules_dir):
+        print("Analysing Module: " + module)
         module_dir = str(os.path.join(modules_dir, module))
         version_file = module_dir + "/version-history.json"
         if os.path.isfile(version_file):
