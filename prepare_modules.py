@@ -7,9 +7,9 @@ from zipfile import ZipFile
 modules_dir = './modules'
 zip_dir = './zips'
 def main():
+    print("Inside main function")
     os.mkdir(zip_dir)
     #Iterate modules directory
-    print("Inside main function")
     for module in os.listdir(modules_dir):
         print("Analysing Module: " + module)
         module_dir = str(os.path.join(modules_dir, module))
