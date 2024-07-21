@@ -8,6 +8,9 @@ modules_dir = './modules'
 zip_dir = './zips'
 def main():
     print("Inside main function")
+    if os.path.exists(zip_dir):
+        print("Zips director exists - removing zips directory")
+        os.system("rm -rf " + zip_dir)
     os.mkdir(zip_dir)
     #Iterate modules directory
     for module in os.listdir(modules_dir):
