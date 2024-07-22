@@ -10,7 +10,7 @@ variable ado_project {
             boards          = string
             repositories    = string
             pipelines       = string
-            testPlans       = string
+            testplans       = string
             artifacts       = string
         })
     }))

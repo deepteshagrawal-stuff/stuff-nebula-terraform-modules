@@ -19,7 +19,7 @@ resource "azuredevops_project" "ado_project" {
         boards = each.value.features.boards
         repositories = each.value.features.repositories
         pipelines = each.value.features.pipelines
-        testPlans = each.value.features.testPlans
+        testplans = each.value.features.testplans
         artifacts = each.value.features.artifacts
     }
 
