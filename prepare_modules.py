@@ -49,11 +49,14 @@ def zip_folder(current_version, module_dir, module_zip_dir):
         with ZipFile(zip_file, 'w') as zipObj:
             print(f"Created ZIP file path: {zip_file}")
             for folderName, subFolders, fileNames in os.walk(module_dir):
+                print(f"folderName: {folderName}")
                 for fileName in fileNames:
                     if(fileName.endswith(".tf")):
                         filePath = os.path.join(folderName, fileName)
                         print(f"filePath: {filePath}")
-                        zipObj.write(filePath, basename(filePath))
+                        arcname = os.path.relpath(filePath, module_dir)
+                        print(f"relative file name: {arcname}")
+                        zipObj.write(filePath, arcname)
     except Exception as e:
         print(f"zipping folder exception: {e}")
 
