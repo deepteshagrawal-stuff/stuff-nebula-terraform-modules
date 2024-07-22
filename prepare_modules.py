@@ -2,7 +2,6 @@ import json
 import os
 import json
 from os.path import basename
-print("before importing zipfile.")
 from zipfile import ZipFile
 
 modules_dir = './modules'
@@ -40,21 +39,23 @@ def main():
             else:
                 print(module + ": No version file!")
         except Exception as e:
-            print("unexpection exception in main: {e}")
+            print(f"unexpection exception in main: {e}")
 
 # Zips folder for release to Amazon s3
 def zip_folder(current_version, module_dir, module_zip_dir):
     try:
-        file_name = "/"+current_version+".zip"
-        zip_file = module_zip_dir+file_name
+        file_name = current_version+".zip"
+        zip_file = os.path.join(module_zip_dir,file_name)
         with ZipFile(zip_file, 'w') as zipObj:
+            print(f"Created ZIP file path: {zip_file}")
             for folderName, subFolders, fileNames in os.walk(module_dir):
                 for fileName in fileNames:
                     if(fileName.endswith(".tf")):
                         filePath = os.path.join(folderName, fileName)
+                        print(f"filePath: {filePath}")
                         zipObj.write(filePath, basename(filePath))
     except Exception as e:
-        print("zipping folder exception: {e}")
+        print(f"zipping folder exception: {e}")
 
 # Modifys the version=history.json to include new version as a version
 def update_versions_file(version_file, data):
@@ -65,11 +66,11 @@ def update_versions_file(version_file, data):
             json.dump(data, f, indent=4)
         f.close()
     except Exception as e:
-        print("update versions file exception: {e}")
+        print(f"update versions file exception: {e}")
 
 if __name__ == "__main__":
     try:
         print("calling main")
         main()
     except Exception as e:
-        print("exception while calling main: {e}")
+        print(f"exception while calling main: {e}")
