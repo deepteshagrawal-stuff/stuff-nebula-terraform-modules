@@ -39,6 +39,7 @@ module "iamrole_policy_module" {
 }
 ```
 
+While creating zip file for this module, other dependant module "stuff-aws-iamrole-policy" will be sitting under .terraform/modules/iamrole_policy_module/main.tf and so on.
 
 ## **Variables**
 Only default attribute is the only way to differentiate between a mandatory and an optional attribute and hence most of the attributes are kept Blank or Empty to avoid defining them unnecessarily.
