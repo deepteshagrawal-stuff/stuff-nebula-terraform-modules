@@ -3,9 +3,10 @@ import os
 import json
 from os.path import basename
 from zipfile import ZipFile
-
+print("python code starts.")
 modules_dir = './modules'
 zip_dir = './zips'
+print("after defining variables.")
 def main():
     print("Inside main function")
     if os.path.exists(zip_dir):
@@ -36,7 +37,7 @@ def main():
                 print(module + ":No version set or the version already exists!")
         else:
             print(module + ": No version file!")
-
+print("after defining main.")
 # Zips folder for release to Amazon s3
 def zip_folder(current_version, module_dir, module_zip_dir):
     file_name = "/"+current_version+".zip"
@@ -48,6 +49,8 @@ def zip_folder(current_version, module_dir, module_zip_dir):
                     filePath = os.path.join(folderName, fileName)
                     zipObj.write(filePath, basename(filePath))
 
+print("after defining zip folder.")
+
 # Modifys the version=history.json to include new version as a version
 def update_versions_file(version_file, data):
     data["versions"].append(data["current-version"])
@@ -56,5 +59,7 @@ def update_versions_file(version_file, data):
         json.dump(data, f, indent=4)
     f.close()
 
+print("after defining update version file.")
 if __name__ == "__main__":
+    print("calling main")
     main()
