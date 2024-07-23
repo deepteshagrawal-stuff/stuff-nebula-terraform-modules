@@ -25,3 +25,7 @@ variable projectId {
 variable repo_id {
     type = string
 }
+
+variable service_connection_id {
+    type = string
+}   

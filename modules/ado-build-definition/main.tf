@@ -24,7 +24,7 @@ resource "azuredevops_build_definition" "ado_build_definition" {
         repo_id                 = each.value.repository.repo_id
         branch_name             = each.value.repository.branch_name
         yml_path                = each.value.repository.yml_path
-        service_connection_id   = each.value.repository.service_connection_id
+        service_connection_id   = var.service_connection_id
     }
 
     features {
