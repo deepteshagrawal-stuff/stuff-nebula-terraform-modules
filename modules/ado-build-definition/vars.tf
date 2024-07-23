@@ -10,7 +10,6 @@ variable ado_build_definition {
             repo_id = string
             branch_name = string
             yml_path = string
-            service_connection_id = string
         })
         features = object({
             skip_first_run = bool
