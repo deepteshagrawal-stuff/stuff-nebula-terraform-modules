@@ -58,7 +58,7 @@ function_env_vars	    | Key value pairs to set as environment variables. | Empty
 create_lambda_url	    | Does lambda url need to be created. Function URL will not generated if its false. | False
 layer_info              | It is a map of object(filename, name, runtimes) to support multiple layers. lambda layers will not get created if its empty. | Empty Map
 xtended_inline_policies | It is a map of inline policies having name and policy document in json format. It will only create cloudwatch logs policy if its empty. | Empty Map
-
+invoke_function_url_principal_arn | Principal ARN of the user/role resource which is allowed to call this lambda through its url directly. It will not create invoke function url permission if create_lambda_url is false and resource arn is empty. | Empty String
 
 ## **Usage**
 ```
@@ -76,5 +76,6 @@ module "stuff_aws_lambda_module" {
   layer_info                = local.layer_information           # Not Mandatory
   account_number            = var.account_number
   xtended_inline_policies   = local.inline_policies             # Not Mandatory
+  invoke_function_url_principal_arn = resource arn allow to invoke this lambda directly # Not Mandatory
 }
 ```

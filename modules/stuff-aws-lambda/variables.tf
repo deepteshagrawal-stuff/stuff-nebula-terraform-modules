@@ -69,3 +69,9 @@ variable "xtended_inline_policies" {
   description = "a map of inline policies having name and policy document in json format. default is empty map."
   default = {}
 }
+
+variable "invoke_function_url_principal_arn" {
+  type = string
+  description = "principal arn which are allowed to invoke this lambda function through its direct url."
+  default = ""
+}

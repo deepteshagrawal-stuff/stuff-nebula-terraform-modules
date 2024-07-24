@@ -68,3 +68,12 @@ module "iamrole_policy_module" {
   role_service            = "lambda.amazonaws.com"
   role_inline_policies    = local.inline_policies
 }
+
+resource "aws_lambda_permission" "invoke_function_url_permission" {
+  count                   = var.create_lambda_url && var.invoke_function_url_principal_arn != "" ? 1 : 0
+  action                  = "lambda:InvokeFunctionUrl"
+  function_name           = aws_lambda_function.lambda_function.function_name
+  principal               = var.invoke_function_url_principal_arn
+  source_account          = var.account_number
+  function_url_auth_type  = "AWS_IAM"
+}
